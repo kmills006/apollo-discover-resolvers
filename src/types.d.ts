@@ -1,5 +1,1 @@
-declare module 'apollo-discover-resolvers' {
-  interface ITesting {
-    message: string;
-  }
-}
+declare module 'apollo-discover-resolvers';
