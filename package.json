@@ -25,6 +25,8 @@
   "dependencies": {
     "app-root-path": "^2.1.0",
     "glob": "^7.1.3",
+    "graphql": "^14.0.2",
+    "graphql-tools": "^4.0.0",
     "pascal-case": "^2.0.1",
     "path": "^0.12.7",
     "pluralize": "^7.0.0",
@@ -33,6 +35,7 @@
   "devDependencies": {
     "@types/app-root-path": "^1.2.4",
     "@types/glob": "^7.1.1",
+    "@types/graphql": "^14.0.1",
     "@types/node": "^10.11.4",
     "@types/pascal-case": "^1.1.2",
     "@types/pluralize": "^0.0.29",
