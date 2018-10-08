@@ -1,9 +1,13 @@
 import appRootPath from 'app-root-path';
 import fs from 'fs';
 import glob from 'glob';
+import pascalCase from 'pascal-case';
 import path from 'path';
+import pluralize from 'pluralize';
 
 declare module 'apollo-discover-resolvers';
+
+const resolverTypes = ['mutations', 'queries'];
 
 // TODO: Types
 const flattenDeep = (arr: any): any => Array.isArray(arr)
@@ -12,8 +16,6 @@ const flattenDeep = (arr: any): any => Array.isArray(arr)
 
 const deepSearchResolverDirectory = (file: string): any => {
   const fileStat = fs.lstatSync(file);
-
-  console.log('file: ', file);
 
   if (!fileStat.isDirectory()) {
     return file;
@@ -33,5 +35,43 @@ export const discoverResolvers = (directory: string) => {
       .map(file => deepSearchResolverDirectory(file)),
   );
 
-  console.log('resolverFiles', resolverFiles);
+  return resolverFiles.reduce(
+    (accumulator: any, currentFile: string) => {
+      let resolvers: any = accumulator;
+
+      const splitPath = path.dirname(currentFile).split(path.sep);
+
+      const indexOfResolverType = splitPath.findIndex((element: string): boolean => (
+        resolverTypes.includes(element)
+      ));
+
+      const resolverType = splitPath[indexOfResolverType];
+      const resolverKey = pluralize(pascalCase(resolverType), 1);
+      const resolver = require(currentFile);
+
+      switch (resolverKey) {
+        case 'Query':
+        case 'Mutation':
+          resolvers = {
+            ...resolvers,
+            [resolverKey]: {
+              ...resolvers[resolverKey],
+              ...resolver,
+            },
+          };
+
+          break;
+        default:
+          resolvers = {
+            ...resolvers,
+            ...resolver,
+          };
+
+          break;
+      }
+
+      return resolvers;
+    },
+    {},
+  );
 };
