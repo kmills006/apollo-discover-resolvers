@@ -25,7 +25,7 @@ import { ApolloServer, gql } from 'apollo-server';
 import { discoverResolvers } from 'apollo-discover-resolvers';
 
 // A map of functions which return data for the schema.
-const resolvers = discoverResolvers(__dirname);
+const resolvers = discoverResolvers('absolute/path/to/resolvers/directory');
 
 // The GraphQL schema
 const typeDefs = gql`
