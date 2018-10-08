@@ -1,6 +1,7 @@
 import appRootPath from 'app-root-path';
 import fs from 'fs';
 import glob from 'glob';
+import { IResolvers } from 'graphql-tools';
 import pascalCase from 'pascal-case';
 import path from 'path';
 import pluralize from 'pluralize';
@@ -9,8 +10,7 @@ declare module 'apollo-discover-resolvers';
 
 const resolverTypes = ['mutations', 'queries'];
 
-// TODO: Types
-const flattenDeep = (arr: any): any => Array.isArray(arr)
+const flattenDeep = (arr: string[]): string[] => Array.isArray(arr)
   ? arr.reduce((a: any, b: any) => a.concat(flattenDeep(b)) , [])
   : [arr];
 
@@ -26,7 +26,7 @@ const deepSearchResolverDirectory = (file: string): any => {
   return children.map(child => deepSearchResolverDirectory(child));
 };
 
-export const discoverResolvers = (directory: string) => {
+export const discoverResolvers = (directory: string): IResolvers => {
   const resolverPath = `${appRootPath.path}/${path.relative(appRootPath.path, directory)}`;
 
   const resolverFiles = flattenDeep(
@@ -36,8 +36,8 @@ export const discoverResolvers = (directory: string) => {
   );
 
   return resolverFiles.reduce(
-    (accumulator: any, currentFile: string) => {
-      let resolvers: any = accumulator;
+    (accumulator: IResolvers, currentFile: string) => {
+      let resolvers = accumulator;
 
       const splitPath = path.dirname(currentFile).split(path.sep);
 
