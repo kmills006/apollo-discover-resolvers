@@ -1,0 +1,32 @@
+{
+  "name": "apollo-discover-resolvers-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "author": "Kristy Miller <kristy@kmills.co>",
+  "scripts": {
+    "build": "rm -rf dist/ && tsc",
+    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "prepublishOnly": "yarn build",
+    "start": "ts-node src/index.ts"
+  },
+  "keywords": [
+    "apollo",
+    "resolvers",
+    "graphql"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "ts-node": "^7.0.1",
+    "tsc-watch": "^1.0.30",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.0"
+  },
+  "dependencies": {
+    "apollo-discover-resolvers": "^1.0.1",
+    "apollo-server": "^2.1.0",
+    "graphql": "^14.0.2",
+    "typescript": "^3.1.3"
+  }
+}
