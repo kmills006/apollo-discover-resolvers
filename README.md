@@ -94,6 +94,18 @@ const resolvers = {
 }
 ```
 
+## Example App
+
+### Setup
+
+```
+git clone https://github.com/kmills006/apollo-discover-resolvers.git
+cd apollo-discover-resolvers/example
+
+yarn install
+yarn dev
+```
+
 
 ## Todo
  
