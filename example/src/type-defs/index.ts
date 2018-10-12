@@ -7,4 +7,10 @@ const Query = gql`
   }
 `;
 
-export const typeDefs = [Query];
+const Mutation = gql`
+  type Mutation {
+    sumNumbers(valueA: Int!, valueB: Int!): Int!
+  }
+`;
+
+export const typeDefs = [Mutation, Query];
