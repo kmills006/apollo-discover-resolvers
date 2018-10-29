@@ -39,7 +39,8 @@ export const discoverResolvers = (directory: string): IResolvers => {
     (accumulator: IResolvers, currentFile: string) => {
       let resolvers = accumulator;
 
-      const splitPath = path.dirname(currentFile).split(path.sep);
+      const normalizedPath = path.normalize(path.dirname(currentFile));
+      const splitPath = normalizedPath.split(path.sep);
 
       const indexOfResolverType = splitPath.findIndex((element: string): boolean => (
         resolverTypes.includes(element)
